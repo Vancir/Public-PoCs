@@ -1,0 +1,5 @@
+.open malform
+UPDATE v0 SET c1 = 0;
+.limit LE 100;
+.t 0;
+INSERT INTO vt0 VALUES (0);

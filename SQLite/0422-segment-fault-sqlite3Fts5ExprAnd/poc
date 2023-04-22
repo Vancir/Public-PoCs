@@ -1,0 +1,2 @@
+CREATE VIRTUAL TABLE t0 USING fts5(c0, t="trigram");
+SELECT 0 FROM t0(0) WHERE c0 GLOB 0;

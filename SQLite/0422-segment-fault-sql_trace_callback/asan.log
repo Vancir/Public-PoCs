@@ -1,0 +1,30 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1005116==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x5555556a9277 bp 0x7fffffff90e0 sp 0x7fffffff9090 T0)
+==1005116==The signal is caused by a READ memory access.
+==1005116==Hint: address points to the zero page.
+    #0 0x5555556a9276 in sql_trace_callback /data/song/projects/testbug/sqlite_asan/shell.c:20852
+    #1 0x55555582939c in sqlite3VdbeExec /data/song/projects/testbug/sqlite_asan/sqlite3.c:99241
+    #2 0x5555557e4b35 in sqlite3Step /data/song/projects/testbug/sqlite_asan/sqlite3.c:88867
+    #3 0x5555557e54ac in sqlite3_step /data/song/projects/testbug/sqlite_asan/sqlite3.c:88928
+    #4 0x555555a2b40d in fts3PromoteSegments /data/song/projects/testbug/sqlite_asan/sqlite3.c:194236
+    #5 0x555555a2c3cf in fts3SegmentMerge /data/song/projects/testbug/sqlite_asan/sqlite3.c:194400
+    #6 0x555555a2c5e8 in sqlite3Fts3PendingTermsFlush /data/song/projects/testbug/sqlite_asan/sqlite3.c:194420
+    #7 0x5555559f6396 in fts3SyncMethod /data/song/projects/testbug/sqlite_asan/sqlite3.c:184378
+    #8 0x555555951db4 in sqlite3VtabSync /data/song/projects/testbug/sqlite_asan/sqlite3.c:151890
+    #9 0x5555557d09c5 in vdbeCommit /data/song/projects/testbug/sqlite_asan/sqlite3.c:85558
+    #10 0x5555557d2bdd in sqlite3VdbeHalt /data/song/projects/testbug/sqlite_asan/sqlite3.c:86032
+    #11 0x5555557f3a11 in sqlite3VdbeExec /data/song/projects/testbug/sqlite_asan/sqlite3.c:91828
+    #12 0x5555557e4b35 in sqlite3Step /data/song/projects/testbug/sqlite_asan/sqlite3.c:88867
+    #13 0x5555557e54ac in sqlite3_step /data/song/projects/testbug/sqlite_asan/sqlite3.c:88928
+    #14 0x5555556a129e in exec_prepared_stmt /data/song/projects/testbug/sqlite_asan/shell.c:19186
+    #15 0x5555556a3309 in shell_exec /data/song/projects/testbug/sqlite_asan/shell.c:19503
+    #16 0x5555556d151d in runOneSqlLine /data/song/projects/testbug/sqlite_asan/shell.c:26539
+    #17 0x5555556d22e2 in process_input /data/song/projects/testbug/sqlite_asan/shell.c:26705
+    #18 0x5555556d5fd2 in main /data/song/projects/testbug/sqlite_asan/shell.c:27646
+    #19 0x7ffff7166082 in __libc_start_main ../csu/libc-start.c:308
+    #20 0x55555564830d in _start (/data/song/projects/testbug/sqlite3-asan+0xf430d)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /data/song/projects/testbug/sqlite_asan/shell.c:20852 in sql_trace_callback
+==1005116==ABORTING

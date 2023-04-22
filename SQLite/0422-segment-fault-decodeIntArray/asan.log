@@ -1,0 +1,32 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==1159059==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000001 (pc 0x5555558917bf bp 0x7fffffff6e40 sp 0x7fffffff6de0 T0)
+==1159059==The signal is caused by a WRITE memory access.
+==1159059==Hint: address points to the zero page.
+    #0 0x5555558917be in decodeIntArray /data/song/projects/testbug/sqlite_asan/sqlite3.c:116658
+    #1 0x555555893ef1 in loadStatTbl /data/song/projects/testbug/sqlite_asan/sqlite3.c:116974
+    #2 0x5555558942fd in loadStat4 /data/song/projects/testbug/sqlite_asan/sqlite3.c:117010
+    #3 0x555555894c32 in sqlite3AnalysisLoad /data/song/projects/testbug/sqlite_asan/sqlite3.c:117093
+    #4 0x5555558fc0ce in sqlite3InitOne /data/song/projects/testbug/sqlite_asan/sqlite3.c:138134
+    #5 0x5555558fc8c7 in sqlite3Init /data/song/projects/testbug/sqlite_asan/sqlite3.c:138200
+    #6 0x5555558fcbac in sqlite3ReadSchema /data/song/projects/testbug/sqlite_asan/sqlite3.c:138226
+    #7 0x5555558a0f8d in sqlite3StartTable /data/song/projects/testbug/sqlite_asan/sqlite3.c:119289
+    #8 0x55555594d634 in sqlite3VtabBeginParse /data/song/projects/testbug/sqlite_asan/sqlite3.c:151301
+    #9 0x5555559c80ab in yy_reduce /data/song/projects/testbug/sqlite_asan/sqlite3.c:172304
+    #10 0x5555559cb149 in sqlite3Parser /data/song/projects/testbug/sqlite_asan/sqlite3.c:172752
+    #11 0x5555559d0a68 in sqlite3RunParser /data/song/projects/testbug/sqlite_asan/sqlite3.c:174052
+    #12 0x5555558fe82e in sqlite3Prepare /data/song/projects/testbug/sqlite_asan/sqlite3.c:138528
+    #13 0x5555558ff09e in sqlite3LockAndPrepare /data/song/projects/testbug/sqlite_asan/sqlite3.c:138603
+    #14 0x5555558ff78b in sqlite3_prepare_v2 /data/song/projects/testbug/sqlite_asan/sqlite3.c:138689
+    #15 0x5555558e7b27 in sqlite3_exec /data/song/projects/testbug/sqlite_asan/sqlite3.c:132461
+    #16 0x5555556ab37f in tryToCloneSchema /data/song/projects/testbug/sqlite_asan/shell.c:21216
+    #17 0x5555556abc09 in tryToClone /data/song/projects/testbug/sqlite_asan/shell.c:21283
+    #18 0x5555556b89f7 in do_meta_command /data/song/projects/testbug/sqlite_asan/shell.c:23268
+    #19 0x5555556d1f80 in process_input /data/song/projects/testbug/sqlite_asan/shell.c:26673
+    #20 0x5555556d5fd2 in main /data/song/projects/testbug/sqlite_asan/shell.c:27646
+    #21 0x7ffff7166082 in __libc_start_main ../csu/libc-start.c:308
+    #22 0x55555564830d in _start (/data/song/projects/testbug/sqlite3-asan+0xf430d)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /data/song/projects/testbug/sqlite_asan/sqlite3.c:116658 in decodeIntArray
+==1159059==ABORTING
