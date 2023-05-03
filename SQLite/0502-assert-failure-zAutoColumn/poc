@@ -1,0 +1,3 @@
+PRAGMA hard_heap_limit=800000;
+.m cs
+.i malform 0
