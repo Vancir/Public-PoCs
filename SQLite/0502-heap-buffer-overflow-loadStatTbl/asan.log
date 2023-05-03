@@ -1,0 +1,92 @@
+=================================================================
+==3414023==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60700000c708 at pc 0x0000007d54be bp 0x7ffc355979d0 sp 0x7ffc355979c8
+READ of size 8 at 0x60700000c708 thread T0
+    #0 0x7d54bd in loadStatTbl /data/song/projects/testbug/sqlite_bisect/sqlite3.c:117035:70
+    #1 0x7d280b in loadStat4 /data/song/projects/testbug/sqlite_bisect/sqlite3.c:117071:10
+    #2 0x76f365 in sqlite3AnalysisLoad /data/song/projects/testbug/sqlite_bisect/sqlite3.c:117154:10
+    #3 0x76ccbc in sqlite3InitOne /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138195:7
+    #4 0x622eb2 in sqlite3Init /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138261:10
+    #5 0x7ed756 in sqlite3ReadSchema /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138287:10
+    #6 0x5fd8f3 in sqlite3LocateTable /data/song/projects/testbug/sqlite_bisect/sqlite3.c:118511:18
+    #7 0x8db55a in sqlite3LocateTableItem /data/song/projects/testbug/sqlite_bisect/sqlite3.c:118575:10
+    #8 0x8f8f5e in sqlite3SrcListLookup /data/song/projects/testbug/sqlite_bisect/sqlite3.c:124337:10
+    #9 0x86d53b in sqlite3BeginTrigger /data/song/projects/testbug/sqlite_bisect/sqlite3.c:147551:10
+    #10 0x810d4a in yy_reduce /data/song/projects/testbug/sqlite_bisect/sqlite3.c:172223:3
+    #11 0x7fc7d3 in sqlite3Parser /data/song/projects/testbug/sqlite_bisect/sqlite3.c:172836:15
+    #12 0x6101cd in sqlite3RunParser /data/song/projects/testbug/sqlite_bisect/sqlite3.c:174136:5
+    #13 0x7ceba8 in sqlite3Prepare /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138589:5
+    #14 0x60a844 in sqlite3LockAndPrepare /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138664:10
+    #15 0x5d7385 in sqlite3_prepare_v2 /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138750:8
+    #16 0x5301e4 in shell_exec /data/song/projects/testbug/sqlite_bisect/shell.c:19537:10
+    #17 0x5b6e60 in runOneSqlLine /data/song/projects/testbug/sqlite_bisect/shell.c:26695:8
+    #18 0x533bde in process_input /data/song/projects/testbug/sqlite_bisect/shell.c:26881:15
+    #19 0x50bc22 in main /data/song/projects/testbug/sqlite_bisect/shell.c:27802:12
+    #20 0x7f1b5f623082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
+    #21 0x41d69d in _start (/data/song/projects/testbug/Public-PoCs/SQLite/0502-heap-buffer-overflow-loadStatTbl/sqlite3-asan+0x41d69d)
+
+0x60700000c708 is located 0 bytes to the right of 72-byte region [0x60700000c6c0,0x60700000c708)
+allocated by thread T0 here:
+    #0 0x4bfb9f in malloc /data/song/projects/catch-opt-knob/experiments/build_aflgo/build/llvm_tools/llvm-10.0.0.src/projects/compiler-rt/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0xa3f218 in sqlite3MemMalloc /data/song/projects/testbug/sqlite_bisect/sqlite3.c:25713:7
+    #2 0x645312 in mallocWithAlarm /data/song/projects/testbug/sqlite_bisect/sqlite3.c:29415:7
+    #3 0x5bd7e4 in sqlite3Malloc /data/song/projects/testbug/sqlite_bisect/sqlite3.c:29461:5
+    #4 0x6470c5 in dbMallocRawFinish /data/song/projects/testbug/sqlite_bisect/sqlite3.c:29766:7
+    #5 0x646897 in sqlite3DbMallocRawNN /data/song/projects/testbug/sqlite_bisect/sqlite3.c:29814:12
+    #6 0x5f8d27 in sqlite3DbMallocRaw /data/song/projects/testbug/sqlite_bisect/sqlite3.c:29797:19
+    #7 0x5f232a in sqlite3DbMallocZero /data/song/projects/testbug/sqlite_bisect/sqlite3.c:29754:7
+    #8 0x7d49eb in loadStatTbl /data/song/projects/testbug/sqlite_bisect/sqlite3.c:116990:21
+    #9 0x7d280b in loadStat4 /data/song/projects/testbug/sqlite_bisect/sqlite3.c:117071:10
+    #10 0x76f365 in sqlite3AnalysisLoad /data/song/projects/testbug/sqlite_bisect/sqlite3.c:117154:10
+    #11 0x76ccbc in sqlite3InitOne /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138195:7
+    #12 0x622eb2 in sqlite3Init /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138261:10
+    #13 0x7ed756 in sqlite3ReadSchema /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138287:10
+    #14 0x5fd8f3 in sqlite3LocateTable /data/song/projects/testbug/sqlite_bisect/sqlite3.c:118511:18
+    #15 0x8db55a in sqlite3LocateTableItem /data/song/projects/testbug/sqlite_bisect/sqlite3.c:118575:10
+    #16 0x8f8f5e in sqlite3SrcListLookup /data/song/projects/testbug/sqlite_bisect/sqlite3.c:124337:10
+    #17 0x86d53b in sqlite3BeginTrigger /data/song/projects/testbug/sqlite_bisect/sqlite3.c:147551:10
+    #18 0x810d4a in yy_reduce /data/song/projects/testbug/sqlite_bisect/sqlite3.c:172223:3
+    #19 0x7fc7d3 in sqlite3Parser /data/song/projects/testbug/sqlite_bisect/sqlite3.c:172836:15
+    #20 0x6101cd in sqlite3RunParser /data/song/projects/testbug/sqlite_bisect/sqlite3.c:174136:5
+    #21 0x7ceba8 in sqlite3Prepare /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138589:5
+    #22 0x60a844 in sqlite3LockAndPrepare /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138664:10
+    #23 0x5d7385 in sqlite3_prepare_v2 /data/song/projects/testbug/sqlite_bisect/sqlite3.c:138750:8
+    #24 0x5301e4 in shell_exec /data/song/projects/testbug/sqlite_bisect/shell.c:19537:10
+    #25 0x5b6e60 in runOneSqlLine /data/song/projects/testbug/sqlite_bisect/shell.c:26695:8
+    #26 0x533bde in process_input /data/song/projects/testbug/sqlite_bisect/shell.c:26881:15
+    #27 0x50bc22 in main /data/song/projects/testbug/sqlite_bisect/shell.c:27802:12
+    #28 0x7f1b5f623082 in __libc_start_main /build/glibc-SzIz7B/glibc-2.31/csu/../csu/libc-start.c:308:16
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /data/song/projects/testbug/sqlite_bisect/sqlite3.c:117035:70 in loadStatTbl
+Shadow bytes around the buggy address:
+  0x0c0e7fff9890: fa fa fd fd fd fd fd fd fd fd fd fd fa fa fa fa
+  0x0c0e7fff98a0: fd fd fd fd fd fd fd fd fd fd fa fa fa fa fd fd
+  0x0c0e7fff98b0: fd fd fd fd fd fd fd fd fa fa fa fa fd fd fd fd
+  0x0c0e7fff98c0: fd fd fd fd fd fa fa fa fa fa 00 00 00 00 00 00
+  0x0c0e7fff98d0: 00 00 00 fa fa fa fa fa 00 00 00 00 00 00 00 00
+=>0x0c0e7fff98e0: 00[fa]fa fa fa fa 00 00 00 00 00 00 00 00 00 fa
+  0x0c0e7fff98f0: fa fa fa fa 00 00 00 00 00 00 00 00 00 fa fa fa
+  0x0c0e7fff9900: fa fa fd fd fd fd fd fd fd fd fd fd fa fa fa fa
+  0x0c0e7fff9910: fd fd fd fd fd fd fd fd fd fd fa fa fa fa fd fd
+  0x0c0e7fff9920: fd fd fd fd fd fd fd fd fa fa fa fa fd fd fd fd
+  0x0c0e7fff9930: fd fd fd fd fd fd fa fa fa fa fd fd fd fd fd fd
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==3414023==ABORTING

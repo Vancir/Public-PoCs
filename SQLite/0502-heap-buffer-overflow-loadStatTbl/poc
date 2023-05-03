@@ -1,0 +1,3 @@
+.open malform
+UPD;
+CREATE TRIGGER t“0ER DELETE ON t0 
