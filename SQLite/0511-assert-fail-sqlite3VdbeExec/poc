@@ -1,0 +1,2 @@
+.open test.db
+SELECT zipfile(@0) ORDER BY 1;
